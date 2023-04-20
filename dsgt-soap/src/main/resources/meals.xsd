@@ -1,0 +1,55 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://foodmenu.io/gt/webservice"
+           targetNamespace="http://foodmenu.io/gt/webservice" elementFormDefault="qualified">
+
+    <xs:element name="getMealRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="name" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getMealResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="meal" type="tns:meal"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="getLargestMealRequest">
+        <xs:complexType>
+            <xs:sequence></xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getLargestMealResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="meal" type="tns:meal"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:complexType name="meal">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="kcal" type="xs:int"/>
+            <xs:element name="description" type="xs:string"/>
+            <xs:element name="mealtype" type="tns:mealtype"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+
+    <xs:simpleType name="mealtype">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="vegan"/>
+            <xs:enumeration value="veggie"/>
+            <xs:enumeration value="meat"/>
+            <xs:enumeration value="fish"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>
