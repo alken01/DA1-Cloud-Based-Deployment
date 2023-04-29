@@ -1,6 +1,5 @@
 package com.example.springsoap;
 
-
 import io.foodmenu.gt.webservice.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +35,14 @@ public class MenuEndpoint {
         GetLargestMealResponse response = new GetLargestMealResponse();
         response.setMeal(mealrepo.findBiggestMeal());
 
+        return response;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getCheapestMealResponse")
+    @ResponsePayload
+    public GetCheapestMealResponse getCheapestMeal(@RequestPayload GetCheapestMealRequest request) {
+        GetCheapestMealResponse response = new GetCheapestMealResponse();
+        response.setMeal(mealrepo.findCheapestMeal());
         return response;
     }
 

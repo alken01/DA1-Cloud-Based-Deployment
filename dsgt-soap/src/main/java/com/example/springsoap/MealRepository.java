@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-
 import io.foodmenu.gt.webservice.*;
 
 
@@ -54,12 +53,24 @@ public class MealRepository {
     }
 
     public Meal findBiggestMeal() {
-
         if (meals == null) return null;
         if (meals.size() == 0) return null;
 
         var values = meals.values();
         return values.stream().max(Comparator.comparing(Meal::getKcal)).orElseThrow(NoSuchElementException::new);
+
+    }
+
+    public Meal findCheapestMeal() {
+        if (meals == null) return null;
+        if (meals.size() == 0) return null;
+
+        var values = meals.values();
+        return values.stream().max(Comparator.comparing(Meal::getPrice)).orElseThrow(NoSuchElementException::new);
+
+    }
+
+    public OrderConfirmation addOrder(Order order){
 
     }
 
