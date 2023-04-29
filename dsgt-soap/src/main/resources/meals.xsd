@@ -66,14 +66,10 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:simpleType name="mealListType">
-        <xs:list itemType="xs:string"/>
-    </xs:simpleType>
-
     <xs:complexType name="order">
         <xs:sequence>
             <xs:element name="address" type="xs:string"/>
-            <xs:element name="mealList" type="mealListType"/>
+            <xs:element name="mealList" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
 

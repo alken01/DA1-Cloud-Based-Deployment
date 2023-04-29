@@ -5,11 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cfd52770-4b6c-4aa5-8c83-519c4d398ecb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../dsgt-rmi-CarRental-Demo/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../dsgt-rmi-CarRental-Demo/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../dsgt-rmi-CarRental-Demo/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../dsgt-rmi-CarRental-Demo/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../dsgt-rmi-CarRental-Demo/dsgt-rmi-CarRental-Demo.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dsgt-rest/target/classes/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dsgt-rest/target/classes/requests/delete-meal-rest.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dsgt-rest/target/classes/requests/delete-meal-restrpc.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dsgt-rest/target/classes/requests/new-meal-rest.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dsgt-rest/target/classes/requests/new-meal-restrpc.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dsgt-rest/target/classes/requests/new-meal.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dsgt-rest/target/classes/requests/update-meal-rest.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dsgt-rest/target/classes/requests/update-meal-restrpc.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dsgt-rest/target/classes/requests/update-meal.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dsgt-soap/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ Maarten van Steen, Andrew S. Tanenbaum - Distributed Systems_ Principles and Paradigms (2023, Maarten van Steen) - libgen.li.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/../Distributed Systems.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dsgt-soap/src/main/java/com/example/springsoap/MealRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dsgt-soap/src/main/java/com/example/springsoap/MealRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dsgt-soap/src/main/java/com/example/springsoap/MenuEndpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dsgt-soap/src/main/java/com/example/springsoap/MenuEndpoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dsgt-soap/src/main/resources/meals.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/../dsgt-soap/src/main/resources/meals.xsd" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,13 +33,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/alken/DistributedSystems/dsgt-rmi"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/alken/DistributedSystems/dsgt-rmi&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
