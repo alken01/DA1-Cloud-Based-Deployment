@@ -3,21 +3,16 @@ package com.example.springsoap;
 import javax.annotation.PostConstruct;
 import java.util.*;
 
-
 import io.foodmenu.gt.webservice.*;
 
-
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
+import org.springframework.web.server.ResponseStatusException;
 
 @Component
 public class MealRepository {
     private static final Map<String, Meal> meals = new HashMap<String, Meal>();
-    private static final Map<String, Meal> meals1 = new HashMap<String, Meal>();
-    private static final Map<String, Meal> meals2 = new HashMap<String, Meal>();
-    private static final Map<String, Order> orders = new HashMap<String, Order>();
-
-    public Order order;
 
     @PostConstruct
     public void initData() {
@@ -60,6 +55,13 @@ public class MealRepository {
         return meals.get(name);
     }
 
+    public Meal findMealByName(String name) {
+        Assert.notNull(name, "The meal name must not be null");
+        Meal meal = meals.values().stream().filter(m -> m.getName().equals(name)).findFirst().get();
+        return meal;
+    }
+
+
     public Meal findBiggestMeal() {
 
         if (meals == null) return null;
@@ -71,7 +73,6 @@ public class MealRepository {
     }
 
     public Meal findCheapestMeal() {
-
         if (meals == null) return null;
         if (meals.size() == 0) return null;
 
@@ -79,14 +80,28 @@ public class MealRepository {
         return values.stream().min(Comparator.comparing(Meal::getPrice)).orElseThrow(NoSuchElementException::new);
     }
 
+    
     public OrderConfirmation addOrder(Order order) {
-        if (order == null) return null;
+        List<String> orderMeals = order.getMeals();
+
+        // check if all meals exist
+        for (String meal : orderMeals) {
+            if (findMealByName(meal) == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Meal not found");
+            }
+        }
+
+        // calculate total price
+        double totalPrice = 0;
+        for (String meal : orderMeals) {
+            totalPrice += findMealByName(meal).getPrice();
+        }
+
+        // create order confirmation
         OrderConfirmation orderConfirmation = new OrderConfirmation();
+        orderConfirmation.setPrice(totalPrice);
         orderConfirmation.setOrder(order);
-        orderConfirmation.setPrice(findCheapestMeal().getPrice());
-        orderConfirmation.setOrderID(1);
-        orderConfirmation.setCustomerName("Carl");
-        orderConfirmation.setEstimatedDelivery(45);
+
         return orderConfirmation;
     }
 

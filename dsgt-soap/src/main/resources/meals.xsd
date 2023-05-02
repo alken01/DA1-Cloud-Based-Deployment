@@ -75,22 +75,17 @@
 
     <xs:complexType name="order">
         <xs:sequence>
-            <xs:element name="address" type="xs:string"/>
-            <xs:element name="meal" type="tns:meal"/>
+              <xs:element name="address" type="xs:string"/>
+            <xs:element name="meals" type="xs:string" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
 
     <xs:complexType name="orderConfirmation">
         <xs:sequence>
             <xs:element name="order" type="tns:order"/>
-            <xs:element name="price" type="xs:int"/>
-            <xs:element name="orderID" type="xs:int"/>
-            <xs:element name="customerName" type="xs:string"/>
-            <xs:element name="estimatedDelivery" type="xs:int"/>
+            <xs:element name="price" type="xs:double"/>
         </xs:sequence>
     </xs:complexType>
-
-
 
     <xs:simpleType name="mealtype">
         <xs:restriction base="xs:string">

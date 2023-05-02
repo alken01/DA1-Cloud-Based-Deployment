@@ -18,7 +18,6 @@ public class MenuEndpoint {
     private Order order;
 
 
-
     @Autowired
     public MenuEndpoint(MealRepository mealrepo) {
         this.mealrepo = mealrepo;
@@ -47,7 +46,6 @@ public class MenuEndpoint {
     public GetCheapestMealResponse getCheapestMealResponse(@RequestPayload GetCheapestMealRequest request) {
         GetCheapestMealResponse response = new GetCheapestMealResponse();
         response.setMeal(mealrepo.findCheapestMeal());
-
         return response;
     }
 
@@ -55,10 +53,7 @@ public class MenuEndpoint {
     @ResponsePayload
     public GetAddOrderResponse getAddOrderResponse(@RequestPayload GetAddOrderRequest request) {
         Order order1 = new Order();
-        order1.setMeal(mealrepo.findCheapestMeal());
-        order1.setAddress("5th St");
         GetAddOrderResponse response = new GetAddOrderResponse();
-        response.setOrder(mealrepo.addOrder(order1));
         return response;
     }
 
