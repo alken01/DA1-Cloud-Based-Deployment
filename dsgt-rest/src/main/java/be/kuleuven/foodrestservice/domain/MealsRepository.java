@@ -51,7 +51,43 @@ public class MealsRepository {
         return Optional.ofNullable(meal);
     }
 
+    // find meal by name
+    public Optional<Meal> findMealByName(String name) {
+        Assert.notNull(name, "The meal name must not be null");
+        Meal meal = meals.values().stream().filter(m -> m.getName().equals(name)).findFirst().get();
+        return Optional.ofNullable(meal);
+    }
+
     public Collection<Meal> getAllMeal() {
         return meals.values();
+    }
+
+    public Meal getCheapestMeal() {
+        // return the cheapest meal in meals
+        return meals.values().stream().min(Comparator.comparing(Meal::getPrice)).get();
+    }
+
+    public Meal getLargestMeal() {
+        // return the largest meal in meals
+        return meals.values().stream().max(Comparator.comparing(Meal::getKcal)).get();
+    }
+
+    public void addMeal(Meal meal) {
+        // generate a new UUID and set it as the ID of the meal
+        String newId = UUID.randomUUID().toString();
+        meal.setId(newId);
+        meals.put(newId, meal);
+    }
+
+    public Meal deleteMeal(String id) {
+        Meal deleted = meals.remove(id);
+        return deleted;
+    }
+
+    public void updateMeal(Meal meal, String newId) {
+        deleteMeal(meal.getId());
+
+        meal.setId(newId);
+        addMeal(meal);
     }
 }

@@ -1,7 +1,3 @@
-Distributed Systems.pdf
-*.pem
-
-
 # Ignore compiled class files
 *.class
 
@@ -64,3 +60,5 @@ gen-src/
 # Ignore files specific to your environment
 .DS_Store
 Thumbs.db
+Distributed Systems.pdf
+*.pem

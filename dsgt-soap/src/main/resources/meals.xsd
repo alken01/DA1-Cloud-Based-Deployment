@@ -66,27 +66,27 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:complexType name="order">
-        <xs:sequence>
-            <xs:element name="address" type="xs:string"/>
-            <xs:element name="mealList" type="xs:string"/>
-        </xs:sequence>
-    </xs:complexType>
+<!--    <xs:complexType name="order">-->
+<!--        <xs:sequence>-->
+<!--            <xs:element name="address" type="xs:string"/>-->
+<!--            <xs:element name="mealList" type="xs:string"/>-->
+<!--        </xs:sequence>-->
+<!--    </xs:complexType>-->
 
-    <xs:complexType name="orderConfirmation">
-        <xs:sequence>
-            <xs:element name="accepted" type="xs:boolean"/>
-        </xs:sequence>
-    </xs:complexType>
+<!--    <xs:complexType name="orderConfirmation">-->
+<!--        <xs:sequence>-->
+<!--            <xs:element name="accepted" type="xs:boolean"/>-->
+<!--        </xs:sequence>-->
+<!--    </xs:complexType>-->
 
 
-    <xs:element name="addOrder">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="order" type="tns:order"/>
-<!--                <xs:element name="orderConfirmation" type="tns:orderConfirmation"/>-->
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
+<!--    <xs:element name="addOrder">-->
+<!--        <xs:complexType>-->
+<!--            <xs:sequence>-->
+<!--                <xs:element name="order" type="tns:order"/>-->
+<!--&lt;!&ndash;                <xs:element name="orderConfirmation" type="tns:orderConfirmation"/>&ndash;&gt;-->
+<!--            </xs:sequence>-->
+<!--        </xs:complexType>-->
+<!--    </xs:element>-->
 
 </xs:schema>
