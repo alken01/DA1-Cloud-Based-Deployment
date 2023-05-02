@@ -1,5 +1,6 @@
 package com.example.springsoap;
 
+
 import io.foodmenu.gt.webservice.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ public class MenuEndpoint {
     private static final String NAMESPACE_URI = "http://foodmenu.io/gt/webservice";
 
     private MealRepository mealrepo;
+    private Order order;
+
+
 
     @Autowired
     public MenuEndpoint(MealRepository mealrepo) {
@@ -38,11 +42,23 @@ public class MenuEndpoint {
         return response;
     }
 
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getCheapestMealResponse")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getCheapestMealRequest")
     @ResponsePayload
-    public GetCheapestMealResponse getCheapestMeal(@RequestPayload GetCheapestMealRequest request) {
+    public GetCheapestMealResponse getCheapestMealResponse(@RequestPayload GetCheapestMealRequest request) {
         GetCheapestMealResponse response = new GetCheapestMealResponse();
         response.setMeal(mealrepo.findCheapestMeal());
+
+        return response;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getAddOrderRequest")
+    @ResponsePayload
+    public GetAddOrderResponse getAddOrderResponse(@RequestPayload GetAddOrderRequest request) {
+        Order order1 = new Order();
+        order1.setMeal(mealrepo.findCheapestMeal());
+        order1.setAddress("5th St");
+        GetAddOrderResponse response = new GetAddOrderResponse();
+        response.setOrder(mealrepo.addOrder(order1));
         return response;
     }
 

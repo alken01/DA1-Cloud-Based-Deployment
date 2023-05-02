@@ -46,6 +46,21 @@
         </xs:complexType>
     </xs:element>
 
+    <xs:element name="getAddOrderRequest">
+        <xs:complexType>
+            <xs:sequence></xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getAddOrderResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="order" type="tns:orderConfirmation"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
 
     <xs:complexType name="meal">
         <xs:sequence>
@@ -57,6 +72,26 @@
         </xs:sequence>
     </xs:complexType>
 
+
+    <xs:complexType name="order">
+        <xs:sequence>
+            <xs:element name="address" type="xs:string"/>
+            <xs:element name="meal" type="tns:meal"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="orderConfirmation">
+        <xs:sequence>
+            <xs:element name="order" type="tns:order"/>
+            <xs:element name="price" type="xs:int"/>
+            <xs:element name="orderID" type="xs:int"/>
+            <xs:element name="customerName" type="xs:string"/>
+            <xs:element name="estimatedDelivery" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+
     <xs:simpleType name="mealtype">
         <xs:restriction base="xs:string">
             <xs:enumeration value="vegan"/>
@@ -65,28 +100,4 @@
             <xs:enumeration value="fish"/>
         </xs:restriction>
     </xs:simpleType>
-
-<!--    <xs:complexType name="order">-->
-<!--        <xs:sequence>-->
-<!--            <xs:element name="address" type="xs:string"/>-->
-<!--            <xs:element name="mealList" type="xs:string"/>-->
-<!--        </xs:sequence>-->
-<!--    </xs:complexType>-->
-
-<!--    <xs:complexType name="orderConfirmation">-->
-<!--        <xs:sequence>-->
-<!--            <xs:element name="accepted" type="xs:boolean"/>-->
-<!--        </xs:sequence>-->
-<!--    </xs:complexType>-->
-
-
-<!--    <xs:element name="addOrder">-->
-<!--        <xs:complexType>-->
-<!--            <xs:sequence>-->
-<!--                <xs:element name="order" type="tns:order"/>-->
-<!--&lt;!&ndash;                <xs:element name="orderConfirmation" type="tns:orderConfirmation"/>&ndash;&gt;-->
-<!--            </xs:sequence>-->
-<!--        </xs:complexType>-->
-<!--    </xs:element>-->
-
 </xs:schema>
