@@ -56,6 +56,7 @@ public class MenuEndpoint {
 
         GetAddOrderResponse response = new GetAddOrderResponse();
         response.setOrderConfirmation(orderConfirmation);
+        System.out.println("Order added: ");
         return response;
     }
 

@@ -82,20 +82,20 @@ public class MealRepository {
 
     
     public OrderConfirmation addOrder(Order order) {
-        // List<String> orderMeals = order.getMeals();
+        List<String> orderMeals = order.getMeals();
 
         // check if all meals exist
-        // for (String meal : orderMeals) {
-        //     if (findMealByName(meal) == null) {
-        //         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Meal not found");
-        //     }
-        // }
+        for (String meal : orderMeals) {
+            if (findMealByName(meal) == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Meal not found");
+            }
+        }
 
         // calculate total price
         double totalPrice = 0;
-        // for (String meal : orderMeals) {
-        //     totalPrice += findMealByName(meal).getPrice();
-        // }
+        for (String meal : orderMeals) {
+            totalPrice += findMealByName(meal).getPrice();
+        }
 
         // create order confirmation
         OrderConfirmation orderConfirmation = new OrderConfirmation();

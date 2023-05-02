@@ -2,6 +2,12 @@
                   xmlns:gs="http://foodmenu.io/gt/webservice">
     <soapenv:Header/>
     <soapenv:Body>
-        <gs:getAddOrderRequest/>
+        <gs:getAddOrderRequest>
+            <gs:order>
+                <gs:address>123 Main St.</gs:address>
+                <gs:meals>Steak</gs:meals>
+                <gs:meals>Portobello</gs:meals>
+            </gs:order>
+        </gs:getAddOrderRequest>
     </soapenv:Body>
 </soapenv:Envelope>
