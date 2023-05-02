@@ -28,7 +28,6 @@ public class MenuEndpoint {
     public GetMealResponse getMeal(@RequestPayload GetMealRequest request) {
         GetMealResponse response = new GetMealResponse();
         response.setMeal(mealrepo.findMeal(request.getName()));
-
         return response;
     }
 
@@ -53,11 +52,10 @@ public class MenuEndpoint {
     @ResponsePayload
     public GetAddOrderResponse getAddOrderResponse(@RequestPayload GetAddOrderRequest request) {
         Order order = request.getOrder();
-        OrderConfirmation confirmation = mealrepo.addOrder(order);
+        OrderConfirmation orderConfirmation = mealrepo.addOrder(order);
 
         GetAddOrderResponse response = new GetAddOrderResponse();
-        response.setOrderConfirmation(confirmation);
-
+        response.setOrderConfirmation(orderConfirmation);
         return response;
     }
 
