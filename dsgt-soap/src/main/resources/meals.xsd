@@ -48,14 +48,16 @@
 
     <xs:element name="getAddOrderRequest">
         <xs:complexType>
-            <xs:sequence></xs:sequence>
+            <xs:sequence>
+                <xs:element name="order" type="tns:order"/>
+            </xs:sequence>
         </xs:complexType>
     </xs:element>
 
     <xs:element name="getAddOrderResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="order" type="tns:orderConfirmation"/>
+                <xs:element name="orderConfirmation" type="tns:orderConfirmation"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

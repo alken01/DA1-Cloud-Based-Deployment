@@ -1,0 +1,14 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="namespace_uri">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <tns:getAddOrderRequest>
+         <tns:order>
+            <tns:address>123 Main St.</tns:address>
+            <tns:meals>Spaghetti</tns:meals>
+            <tns:meals>Salad</tns:meals>
+            <tns:meals>Garlic Bread</tns:meals>
+         </tns:order>
+      </tns:getAddOrderRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+

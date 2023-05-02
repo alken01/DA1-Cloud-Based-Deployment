@@ -52,8 +52,12 @@ public class MenuEndpoint {
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getAddOrderRequest")
     @ResponsePayload
     public GetAddOrderResponse getAddOrderResponse(@RequestPayload GetAddOrderRequest request) {
-        Order order1 = new Order();
+        Order order = request.getOrder();
+        OrderConfirmation confirmation = mealrepo.addOrder(order);
+
         GetAddOrderResponse response = new GetAddOrderResponse();
+        response.setOrderConfirmation(confirmation);
+
         return response;
     }
 
