@@ -1,4 +1,4 @@
-\documentclass[11pt]{article}
+\documentclass{article}
 
     \usepackage[breakable]{tcolorbox}
     \usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
@@ -391,8 +391,12 @@
 
     
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{57}{\boxspacing}
+\prompt{In}{incolor}{56}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{import} \PY{n+nn}{os}
+\PY{k+kn}{import} \PY{n+nn}{subprocess}
+
+\PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
 \PY{k+kn}{import} \PY{n+nn}{requests}
 \PY{k+kn}{import} \PY{n+nn}{time}
 \PY{k+kn}{import} \PY{n+nn}{concurrent}\PY{n+nn}{.}\PY{n+nn}{futures}
@@ -401,7 +405,7 @@
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{58}{\boxspacing}
+\prompt{In}{incolor}{33}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{k}{def} \PY{n+nf}{send\PYZus{}rest}\PY{p}{(}\PY{n}{url}\PY{p}{,} \PY{n}{method}\PY{p}{,} \PY{n}{payload}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
     \PY{k}{try}\PY{p}{:}
@@ -421,8 +425,9 @@
     \PY{k}{return} \PY{n}{response}
 
 
-\PY{k}{def} \PY{n+nf}{rest\PYZus{}test}\PY{p}{(}\PY{n}{server}\PY{p}{,} \PY{n}{request\PYZus{}list}\PY{p}{,} \PY{n}{num\PYZus{}requests}\PY{p}{)}\PY{p}{:}
+\PY{k}{def} \PY{n+nf}{rest\PYZus{}test}\PY{p}{(}\PY{n}{dns}\PY{p}{,} \PY{n}{request\PYZus{}list}\PY{p}{,} \PY{n}{num\PYZus{}requests}\PY{p}{)}\PY{p}{:}
     \PY{c+c1}{\PYZsh{} print server name}
+    \PY{n}{server} \PY{o}{=} \PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{http://}\PY{l+s+si}{\PYZob{}}\PY{n}{dns}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{:}\PY{l+s+si}{\PYZob{}}\PY{n}{rest\PYZus{}port}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}
     \PY{n}{country} \PY{o}{=} \PY{n}{server}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
     \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Server: }\PY{l+s+si}{\PYZob{}}\PY{n}{country}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
     \PY{c+c1}{\PYZsh{} test every request}
@@ -453,19 +458,17 @@
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{59}{\boxspacing}
+\prompt{In}{incolor}{57}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{server\PYZus{}list} \PY{o}{=} \PY{p}{[}
-    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{alnike.japaneast.cloudapp.azure.com}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20.210.110.130}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-    \PY{c+c1}{\PYZsh{} ,               }
-    \PY{c+c1}{\PYZsh{} (\PYZsq{}useast\PYZhy{}lennart.eastus2.cloudapp.azure.com\PYZsq{}, \PYZsq{}20.1.139.66\PYZsq{}),               }
-    \PY{c+c1}{\PYZsh{} (\PYZsq{}uswest\PYZhy{}thiers.westus3.cloudapp.azure.com\PYZsq{}, \PYZsq{}20.106.100.68\PYZsq{}),               }
-    \PY{c+c1}{\PYZsh{} (\PYZsq{}dapps.westeurope.cloudapp.azure.com\PYZsq{}, \PYZsq{}98.71.185.120\PYZsq{})}
+    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{alnike.japaneast.cloudapp.azure.com}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20.210.110.130}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uswest\PYZhy{}thiers.westus3.cloudapp.azure.com}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20.106.100.68}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{useast\PYZhy{}lennart.eastus2.cloudapp.azure.com}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20.1.139.66}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} 
+    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dapps.westeurope.cloudapp.azure.com}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{98.71.185.120}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{p}{]}
 
-\PY{n}{num\PYZus{}requests} \PY{o}{=} \PY{l+m+mi}{10}
+\PY{n}{num\PYZus{}requests} \PY{o}{=} \PY{l+m+mi}{1}
 \PY{n}{rest\PYZus{}port} \PY{o}{=} \PY{l+m+mi}{8081}
-\PY{n}{soap\PYZus{}port} \PY{o}{=} \PY{l+m+mi}{8082}
 
 \PY{n}{rest\PYZus{}request\PYZus{}list} \PY{o}{=} \PY{p}{[}
     \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/rest/order}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{POST}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{address}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{123 Main St}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{meals}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Portobello}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Portobello}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{]}\PY{p}{,}
@@ -476,15 +479,16 @@
 
 \PY{n}{response\PYZus{}times\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
 
+\PY{c+c1}{\PYZsh{} get this server\PYZsq{}s ip}
 \PY{n}{this\PYZus{}ip} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://api.ipify.org}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{text}
 
 \PY{k}{for} \PY{n}{dns}\PY{p}{,} \PY{n}{ip} \PY{o+ow}{in} \PY{n}{server\PYZus{}list}\PY{p}{:}
     \PY{c+c1}{\PYZsh{} if this is the current server, skip}
     \PY{k}{if} \PY{n}{ip} \PY{o}{==} \PY{n}{this\PYZus{}ip}\PY{p}{:} \PY{k}{continue}
-    
+
     \PY{c+c1}{\PYZsh{} test REST}
-    \PY{n}{server\PYZus{}url} \PY{o}{=} \PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{http://}\PY{l+s+si}{\PYZob{}}\PY{n}{dns}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{:}\PY{l+s+si}{\PYZob{}}\PY{n}{rest\PYZus{}port}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}
-    \PY{n}{response\PYZus{}times} \PY{o}{=} \PY{n}{rest\PYZus{}test}\PY{p}{(}\PY{n}{server\PYZus{}url}\PY{p}{,} \PY{n}{rest\PYZus{}request\PYZus{}list}\PY{p}{,} \PY{n}{num\PYZus{}requests}\PY{p}{)}
+    \PY{n}{response\PYZus{}times} \PY{o}{=} \PY{n}{rest\PYZus{}test}\PY{p}{(}\PY{n}{dns}\PY{p}{,} \PY{n}{rest\PYZus{}request\PYZus{}list}\PY{p}{,} \PY{n}{num\PYZus{}requests}\PY{p}{)}
+    
     \PY{k}{for} \PY{n}{url}\PY{p}{,} \PY{n}{times} \PY{o+ow}{in} \PY{n}{response\PYZus{}times}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
         \PY{k}{if} \PY{n}{url} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{response\PYZus{}times\PYZus{}dict}\PY{p}{:}
             \PY{n}{response\PYZus{}times\PYZus{}dict}\PY{p}{[}\PY{n}{url}\PY{p}{]} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
@@ -495,72 +499,39 @@
 
     \begin{Verbatim}[commandchars=\\\{\}]
 Server: japaneast
-URL: /rest/order, Method: POST, Total Response Time: 5.461
-URL: /rest/meals, Method: GET, Total Response Time: 5.149
-URL: /rest/largest-meal, Method: GET, Total Response Time: 4.756
-URL: /rest/cheapest-meal, Method: GET, Total Response Time: 4.665
+URL: /rest/order, Method: POST, Total Response Time: 0.616
+URL: /rest/meals, Method: GET, Total Response Time: 0.562
+URL: /rest/largest-meal, Method: GET, Total Response Time: 0.486
+URL: /rest/cheapest-meal, Method: GET, Total Response Time: 0.599
 
+
+Server: westus3
+URL: /rest/order, Method: POST, Total Response Time: 0.409
+URL: /rest/meals, Method: GET, Total Response Time: 0.335
+URL: /rest/largest-meal, Method: GET, Total Response Time: 0.31
+URL: /rest/cheapest-meal, Method: GET, Total Response Time: 0.364
+
+
+Server: eastus2
+URL: /rest/order, Method: POST, Total Response Time: 0.665
+URL: /rest/meals, Method: GET, Total Response Time: 0.568
+URL: /rest/largest-meal, Method: GET, Total Response Time: 0.215
+URL: /rest/cheapest-meal, Method: GET, Total Response Time: 0.25
+
+
+Server: westeurope
+URL: /rest/order, Method: POST, Total Response Time: 0.096
+URL: /rest/meals, Method: GET, Total Response Time: 0.046
+URL: /rest/largest-meal, Method: GET, Total Response Time: 0.029
+URL: /rest/cheapest-meal, Method: GET, Total Response Time: 0.037
 
     \end{Verbatim}
-
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{60}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{k}{for} \PY{n}{url}\PY{p}{,} \PY{n}{times\PYZus{}dict} \PY{o+ow}{in} \PY{n}{response\PYZus{}times\PYZus{}dict}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
-    \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
-    \PY{k}{for} \PY{n}{dns}\PY{p}{,} \PY{n}{response\PYZus{}times} \PY{o+ow}{in} \PY{n}{times\PYZus{}dict}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
-        \PY{n}{country} \PY{o}{=} \PY{n}{dns}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{response\PYZus{}times}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n}{country}\PY{p}{)}
-    \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{url}\PY{p}{)}
-    \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Request}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-    \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Response time (seconds)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-    \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
-\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
-\end{tcolorbox}
 
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{server_test_files/server_test_3_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
-    \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{server_test_files/server_test_3_1.png}
-    \end{center}
-    { \hspace*{\fill} \\}
-    
-    \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{server_test_files/server_test_3_2.png}
-    \end{center}
-    { \hspace*{\fill} \\}
-    
-    \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{server_test_files/server_test_3_3.png}
-    \end{center}
-    { \hspace*{\fill} \\}
-    
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{61}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{k+kn}{import} \PY{n+nn}{os}
-\PY{k+kn}{import} \PY{n+nn}{subprocess}
-
-\PY{n}{notebook} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{server\PYZus{}test}\PY{l+s+s1}{\PYZsq{}}
-
-\PY{c+c1}{\PYZsh{} create the report directory if it doesn\PYZsq{}t exist}
-\PY{k}{if} \PY{o+ow}{not} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{exists}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{report}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
-    \PY{n}{os}\PY{o}{.}\PY{n}{mkdir}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{report}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-
-\PY{c+c1}{\PYZsh{} generate the LaTeX file in the report directory}
-\PY{n}{result} \PY{o}{=} \PY{n}{subprocess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{jupyter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nbconvert}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}to}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{latex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{notebook}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.ipynb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}output\PYZhy{}dir}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./report}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{capture\PYZus{}output}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{text}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
-
-\PY{c+c1}{\PYZsh{} generate the PDF file in the report directory}
-\PY{n}{os}\PY{o}{.}\PY{n}{chdir}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{report}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\PY{n}{result} \PY{o}{=} \PY{n}{subprocess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pdflatex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}shell\PYZhy{}escape}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{notebook}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.tex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{capture\PYZus{}output}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{text}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
-\PY{n}{os}\PY{o}{.}\PY{n}{chdir}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{..}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\end{Verbatim}
-\end{tcolorbox}
-
 
     % Add a bibliography block to the postdoc
     
