@@ -5,10 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3e2c9d26-1b0e-4dd0-9b61-748d16c8c28d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../dsgt-soap/SpringSOAP.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/be/kuleuven/foodrestservice/domain/MealsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/be/kuleuven/foodrestservice/domain/MealsRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../dsgt-soap/src/main/java/com/example/springsoap/MealRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../dsgt-soap/src/main/java/com/example/springsoap/MealRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dsgt-soap/src/main/resources/meals.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/../dsgt-soap/src/main/resources/meals.xsd" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

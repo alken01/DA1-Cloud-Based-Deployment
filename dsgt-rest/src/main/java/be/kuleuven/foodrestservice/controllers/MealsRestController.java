@@ -88,7 +88,7 @@ public class MealsRestController {
 
     // OrderConfirmation addOrder(Order order)
 
-    @PutMapping("/rest/order")
+    @PostMapping("/rest/order")
     OrderConfirmation addOrder(@RequestBody Order order) {
         String[] orderMeals = order.getMeals();
         String orderAddress = order.getAddress();

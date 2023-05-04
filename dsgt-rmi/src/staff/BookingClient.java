@@ -35,7 +35,6 @@ public class BookingClient extends AbstractScriptedSimpleTest {
 
 	@Override
 	public void addBooking(BookingDetail bookingDetail) throws Exception {
-		//Implement this method throw and catch exception
 		try{
 			bm.addBooking(bookingDetail);
 		} catch (Exception e) {
@@ -45,7 +44,6 @@ public class BookingClient extends AbstractScriptedSimpleTest {
 
 	@Override
 	public Set<Integer> getAvailableRooms(LocalDate date) {
-		//Implement this method 
 		return bm.getAvailableRooms(date);
 	}
 
