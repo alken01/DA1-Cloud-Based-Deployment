@@ -542,11 +542,22 @@ URL: /rest/cheapest-meal, Method: GET, Total Response Time: 4.665
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{61}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{import} \PY{n+nn}{os}
 \PY{k+kn}{import} \PY{n+nn}{subprocess}
 
 \PY{n}{notebook} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{server\PYZus{}test}\PY{l+s+s1}{\PYZsq{}}
-\PY{n}{result} \PY{o}{=} \PY{n}{subprocess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{jupyter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nbconvert}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}to}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{latex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{notebook}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.ipynb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{capture\PYZus{}output}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{text}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} create the report directory if it doesn\PYZsq{}t exist}
+\PY{k}{if} \PY{o+ow}{not} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{exists}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{report}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+    \PY{n}{os}\PY{o}{.}\PY{n}{mkdir}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{report}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} generate the LaTeX file in the report directory}
+\PY{n}{result} \PY{o}{=} \PY{n}{subprocess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{jupyter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nbconvert}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}to}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{latex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{notebook}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.ipynb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}output\PYZhy{}dir}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./report}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{capture\PYZus{}output}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{text}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} generate the PDF file in the report directory}
+\PY{n}{os}\PY{o}{.}\PY{n}{chdir}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{report}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \PY{n}{result} \PY{o}{=} \PY{n}{subprocess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pdflatex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}shell\PYZhy{}escape}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{notebook}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.tex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{capture\PYZus{}output}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{text}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\PY{n}{os}\PY{o}{.}\PY{n}{chdir}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{..}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
