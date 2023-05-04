@@ -36,8 +36,8 @@ public class BookingManager {
 		return true;
 	}
 
-	public void addBooking(BookingDetail bookingDetail) {
-		//implement this method
+	// synchronized to make it thread safe
+	public synchronized void addBooking(BookingDetail bookingDetail) {	
 		for(Room room : rooms) {
 			if(room.getRoomNumber() == bookingDetail.getRoomNumber()) {
 				// throw an expection if it is not available
@@ -51,7 +51,6 @@ public class BookingManager {
 	}
 
 	public Set<Integer> getAvailableRooms(LocalDate date) {
-		//implement this method
 		Set<Integer> availableRooms = new HashSet<Integer>();
 		for(Room room : rooms) {
 			if(isRoomAvailable(room.getRoomNumber(), date)) {

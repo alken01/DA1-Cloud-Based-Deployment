@@ -68,7 +68,7 @@
         <xs:sequence>
             <xs:element name="name" type="xs:string"/>
             <xs:element name="kcal" type="xs:int"/>
-            <xs:element name="price" type="xs:int"/>
+            <xs:element name="price" type="xs:double"/>
             <xs:element name="description" type="xs:string"/>
             <xs:element name="mealtype" type="tns:mealtype"/>
         </xs:sequence>

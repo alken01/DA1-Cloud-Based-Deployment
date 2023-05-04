@@ -26,6 +26,7 @@ nbdist/
 
 # Ignore JAR and WAR files
 *.jar
+!jar-files/*.jar
 *.war
 
 # Ignore logs and other generated files
