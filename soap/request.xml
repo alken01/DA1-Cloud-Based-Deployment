@@ -1,0 +1,55 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:gs="http://foodmenu.io/gt/webservice">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <gs:getAddOrderRequest>
+            <gs:order>
+                <gs:address>123 Main St.</gs:address>
+                <gs:meals>Fish and Chips</gs:meals>
+                <gs:meals>Steak</gs:meals>
+                <gs:meals>Steak</gs:meals>
+            </gs:order>
+        </gs:getAddOrderRequest>
+    </soapenv:Body>
+</soapenv:Envelope>
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:gs="http://foodmenu.io/gt/webservice">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <gs:getAddOrderRequest>
+            <gs:order>
+                <gs:address>123 Main St.</gs:address>
+                <gs:meals>Fish and Chips</gs:meals>
+                <gs:meals>Steak</gs:meals>
+                <gs:meals>Steak</gs:meals>
+                <gs:meals>Fish and Chips</gs:meals>
+                <gs:meals>Steak</gs:meals>
+                <gs:meals>Steak</gs:meals>
+                <gs:meals>Fish and Chips</gs:meals>
+                <gs:meals>Steak</gs:meals>
+                <gs:meals>Steak</gs:meals>
+            </gs:order>
+        </gs:getAddOrderRequest>
+    </soapenv:Body>
+</soapenv:Envelope>
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:gs="http://foodmenu.io/gt/webservice">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <gs:getMealRequest>
+            <gs:name>Steak</gs:name>
+        </gs:getMealRequest>
+    </soapenv:Body>
+</soapenv:Envelope>
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:gs="http://foodmenu.io/gt/webservice">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <gs:getMealRequest>
+            <gs:name>Fried fish with chips</gs:name>
+        </gs:getMealRequest>
+    </soapenv:Body>
+</soapenv:Envelope>
