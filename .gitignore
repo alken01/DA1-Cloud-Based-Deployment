@@ -63,3 +63,14 @@ gen-src/
 Thumbs.db
 Distributed Systems.pdf
 *.pem
+
+# LaTeX files
+report/*.aux
+report/*.log
+report/*.out
+report/*.toc
+report/*.gz
+report/*.xml
+report/*.fls
+report/*.fdb_latexmk
+report/*.bbl

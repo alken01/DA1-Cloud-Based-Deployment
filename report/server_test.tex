@@ -1,8 +1,9 @@
-\documentclass{article}
+\documentclass[11pt]{article}
 
     \usepackage[breakable]{tcolorbox}
     \usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
     
+    \usepackage{titling}
 
     % Basic figure setup, for now with no caption control since it's done
     % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
@@ -164,12 +165,9 @@
     \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
     % Document parameters
     % Document title
-    \title{server\_test}
-    
-    
-    
-    
-    
+    \title{\textbf{Distributed Applications} \\
+    Project 1: Cloud-based Deployment and Testing}
+
     
     
 % Pygments definitions
@@ -387,151 +385,164 @@
     
     \maketitle
     
-    
+\textbf{Group 21:}
 
-    
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.3867}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.6133}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Name
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Email (@student.kuleuven.be)
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Alken Rrokaj & alken.rrokaj \\
+Bernardo Maria Avides Moreira & bernardomaria.avidesmoreiraamorimalv \\
+Lennart Steenberghs & lennart.steenberghs \\
+Michiel Thiers & michiel.thiers \\
+\end{longtable}
+
+    \hypertarget{code-for-the-analysis}{%
+\section{Code for the Analysis}\label{code-for-the-analysis}}
+
+    \hypertarget{definition-of-the-functions}{%
+\subsection{Definition of the
+functions}\label{definition-of-the-functions}}
+
+The function \texttt{concurrent\_test} is used to test the performance
+of the API requests. This function sends multiple requests to a server
+concurrently using Python's ThreadPoolExecutor, and calculates the total
+response time for each request. The function takes in the DNS, port,
+list of requests, number of requests, and request type (either REST or
+SOAP) as inputs. The output is a dictionary containing the total
+response time for each request.
+
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{56}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{k+kn}{import} \PY{n+nn}{os}
-\PY{k+kn}{import} \PY{n+nn}{subprocess}
-
-\PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
-\PY{k+kn}{import} \PY{n+nn}{requests}
-\PY{k+kn}{import} \PY{n+nn}{time}
-\PY{k+kn}{import} \PY{n+nn}{concurrent}\PY{n+nn}{.}\PY{n+nn}{futures}
-\PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+\PY{k}{def} \PY{n+nf}{send\PYZus{}rest}\PY{p}{(}\PY{n}{url}\PY{p}{,} \PY{n}{method}\PY{p}{,} \PY{n}{payload}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}
+\PY{k}{def} \PY{n+nf}{send\PYZus{}soap}\PY{p}{(}\PY{n}{url}\PY{p}{,} \PY{n}{data}\PY{p}{)}\PY{p}
+\PY{k}{def} \PY{n+nf}{concurrent\PYZus{}test}\PY{p}{(}\PY{n}{dns}\PY{p}{,} \PY{n}{port}\PY{p}{,} \PY{n}{request\PYZus{}list}\PY{p}{,} \PY{n}{num\PYZus{}requests}\PY{p}{,} \PY{n}{req}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{REST}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}
 \end{Verbatim}
 \end{tcolorbox}
 
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{33}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{k}{def} \PY{n+nf}{send\PYZus{}rest}\PY{p}{(}\PY{n}{url}\PY{p}{,} \PY{n}{method}\PY{p}{,} \PY{n}{payload}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
-    \PY{k}{try}\PY{p}{:}
-        \PY{k}{if} \PY{n}{method} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GET}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
-            \PY{n}{response} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{url}\PY{p}{)}
-        \PY{k}{elif} \PY{n}{method} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{POST}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
-            \PY{n}{response} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{post}\PY{p}{(}\PY{n}{url}\PY{p}{,} \PY{n}{json}\PY{o}{=}\PY{n}{payload}\PY{p}{)}
-        \PY{k}{elif} \PY{n}{method} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PUT}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
-            \PY{n}{response} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{put}\PY{p}{(}\PY{n}{url}\PY{p}{,} \PY{n}{json}\PY{o}{=}\PY{n}{payload}\PY{p}{)}
-        \PY{k}{elif} \PY{n}{method} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DELETE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
-            \PY{n}{response} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{delete}\PY{p}{(}\PY{n}{url}\PY{p}{)}
-        \PY{k}{else}\PY{p}{:}
-            \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Invalid method }\PY{l+s+si}{\PYZob{}}\PY{n}{method}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-    \PY{k}{except}\PY{p}{:}
-        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Request failed: }\PY{l+s+si}{\PYZob{}}\PY{n}{url}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-        \PY{k}{return} \PY{k+kc}{None}
-    \PY{k}{return} \PY{n}{response}
-
-
-\PY{k}{def} \PY{n+nf}{rest\PYZus{}test}\PY{p}{(}\PY{n}{dns}\PY{p}{,} \PY{n}{request\PYZus{}list}\PY{p}{,} \PY{n}{num\PYZus{}requests}\PY{p}{)}\PY{p}{:}
-    \PY{c+c1}{\PYZsh{} print server name}
-    \PY{n}{server} \PY{o}{=} \PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{http://}\PY{l+s+si}{\PYZob{}}\PY{n}{dns}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{:}\PY{l+s+si}{\PYZob{}}\PY{n}{rest\PYZus{}port}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}
-    \PY{n}{country} \PY{o}{=} \PY{n}{server}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
-    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Server: }\PY{l+s+si}{\PYZob{}}\PY{n}{country}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-    \PY{c+c1}{\PYZsh{} test every request}
-    \PY{n}{response\PYZus{}times\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
-    \PY{k}{for} \PY{n}{request} \PY{o+ow}{in} \PY{n}{request\PYZus{}list}\PY{p}{:} 
-        \PY{n}{url}\PY{p}{,} \PY{n}{method}\PY{p}{,} \PY{o}{*}\PY{n}{args} \PY{o}{=} \PY{n}{request}
-        \PY{n}{payload} \PY{o}{=} \PY{n}{args}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{if} \PY{n}{args} \PY{k}{else} \PY{k+kc}{None}
-        \PY{c+c1}{\PYZsh{} send requests concurrently}
-        \PY{k}{with} \PY{n}{concurrent}\PY{o}{.}\PY{n}{futures}\PY{o}{.}\PY{n}{ThreadPoolExecutor}\PY{p}{(}\PY{p}{)} \PY{k}{as} \PY{n}{executor}\PY{p}{:}
-            \PY{n}{response\PYZus{}times} \PY{o}{=} \PY{p}{[}\PY{p}{]}
-            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{num\PYZus{}requests}\PY{p}{)}\PY{p}{:}
-                \PY{n}{start\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{perf\PYZus{}counter}\PY{p}{(}\PY{p}{)}
-                \PY{n}{response} \PY{o}{=} \PY{n}{send\PYZus{}rest}\PY{p}{(}\PY{n}{server} \PY{o}{+} \PY{n}{url}\PY{p}{,} \PY{n}{method}\PY{p}{,} \PY{n}{payload}\PY{p}{)}
-                \PY{n}{end\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{perf\PYZus{}counter}\PY{p}{(}\PY{p}{)}
-                \PY{n}{response\PYZus{}time} \PY{o}{=} \PY{n}{end\PYZus{}time} \PY{o}{\PYZhy{}} \PY{n}{start\PYZus{}time}
-                \PY{n}{response\PYZus{}times}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{response\PYZus{}time}\PY{p}{)}
-            \PY{k}{if} \PY{n}{url} \PY{o+ow}{in} \PY{n}{response\PYZus{}times\PYZus{}dict}\PY{p}{:}
-                \PY{n}{response\PYZus{}times\PYZus{}dict}\PY{p}{[}\PY{n}{url}\PY{p}{]}\PY{o}{.}\PY{n}{extend}\PY{p}{(}\PY{n}{response\PYZus{}times}\PY{p}{)}
-            \PY{k}{else}\PY{p}{:}
-                \PY{n}{response\PYZus{}times\PYZus{}dict}\PY{p}{[}\PY{n}{url}\PY{p}{]} \PY{o}{=} \PY{n}{response\PYZus{}times}
-            \PY{c+c1}{\PYZsh{} total time rounded to 3 decimal places}
-            \PY{n}{total\PYZus{}time} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{response\PYZus{}times}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
-            
-            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{URL: }\PY{l+s+si}{\PYZob{}}\PY{n}{url}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{, Method: }\PY{l+s+si}{\PYZob{}}\PY{n}{method}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{, Total Response Time: }\PY{l+s+si}{\PYZob{}}\PY{n}{total\PYZus{}time}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-
-    \PY{k}{return} \PY{n}{response\PYZus{}times\PYZus{}dict}
-\end{Verbatim}
-\end{tcolorbox}
+    \hypertarget{other-functions}{%
+\subsubsection{Run the REST requests}\label{run-the-rest-requests}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{57}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{n}{server\PYZus{}list} \PY{o}{=} \PY{p}{[}
-    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{alnike.japaneast.cloudapp.azure.com}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20.210.110.130}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
-    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uswest\PYZhy{}thiers.westus3.cloudapp.azure.com}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20.106.100.68}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
-    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{useast\PYZhy{}lennart.eastus2.cloudapp.azure.com}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20.1.139.66}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} 
-    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dapps.westeurope.cloudapp.azure.com}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{98.71.185.120}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-\PY{p}{]}
-
-\PY{n}{num\PYZus{}requests} \PY{o}{=} \PY{l+m+mi}{1}
 \PY{n}{rest\PYZus{}port} \PY{o}{=} \PY{l+m+mi}{8081}
-
 \PY{n}{rest\PYZus{}request\PYZus{}list} \PY{o}{=} \PY{p}{[}
-    \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/rest/order}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{POST}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{address}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{123 Main St}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{meals}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Portobello}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Portobello}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{]}\PY{p}{,}
+    \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/rest/order}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{POST}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{address}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{123 Main St}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{meals}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fish and Chips}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Steak}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{]}\PY{p}{,}
     \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/rest/meals}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GET}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
     \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/rest/largest\PYZhy{}meal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GET}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
     \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/rest/cheapest\PYZhy{}meal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GET}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
 \PY{p}{]}
-
-\PY{n}{response\PYZus{}times\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
-
-\PY{c+c1}{\PYZsh{} get this server\PYZsq{}s ip}
-\PY{n}{this\PYZus{}ip} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://api.ipify.org}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{text}
-
-\PY{k}{for} \PY{n}{dns}\PY{p}{,} \PY{n}{ip} \PY{o+ow}{in} \PY{n}{server\PYZus{}list}\PY{p}{:}
-    \PY{c+c1}{\PYZsh{} if this is the current server, skip}
-    \PY{k}{if} \PY{n}{ip} \PY{o}{==} \PY{n}{this\PYZus{}ip}\PY{p}{:} \PY{k}{continue}
-
-    \PY{c+c1}{\PYZsh{} test REST}
-    \PY{n}{response\PYZus{}times} \PY{o}{=} \PY{n}{rest\PYZus{}test}\PY{p}{(}\PY{n}{dns}\PY{p}{,} \PY{n}{rest\PYZus{}request\PYZus{}list}\PY{p}{,} \PY{n}{num\PYZus{}requests}\PY{p}{)}
-    
-    \PY{k}{for} \PY{n}{url}\PY{p}{,} \PY{n}{times} \PY{o+ow}{in} \PY{n}{response\PYZus{}times}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
-        \PY{k}{if} \PY{n}{url} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{response\PYZus{}times\PYZus{}dict}\PY{p}{:}
-            \PY{n}{response\PYZus{}times\PYZus{}dict}\PY{p}{[}\PY{n}{url}\PY{p}{]} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
-        \PY{n}{response\PYZus{}times\PYZus{}dict}\PY{p}{[}\PY{n}{url}\PY{p}{]}\PY{p}{[}\PY{n}{dns}\PY{p}{]} \PY{o}{=} \PY{n}{times}
-    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-Server: japaneast
-URL: /rest/order, Method: POST, Total Response Time: 0.616
-URL: /rest/meals, Method: GET, Total Response Time: 0.562
-URL: /rest/largest-meal, Method: GET, Total Response Time: 0.486
-URL: /rest/cheapest-meal, Method: GET, Total Response Time: 0.599
 
-
-Server: westus3
-URL: /rest/order, Method: POST, Total Response Time: 0.409
-URL: /rest/meals, Method: GET, Total Response Time: 0.335
-URL: /rest/largest-meal, Method: GET, Total Response Time: 0.31
-URL: /rest/cheapest-meal, Method: GET, Total Response Time: 0.364
-
-
-Server: eastus2
-URL: /rest/order, Method: POST, Total Response Time: 0.665
-URL: /rest/meals, Method: GET, Total Response Time: 0.568
-URL: /rest/largest-meal, Method: GET, Total Response Time: 0.215
-URL: /rest/cheapest-meal, Method: GET, Total Response Time: 0.25
-
-
-Server: westeurope
-URL: /rest/order, Method: POST, Total Response Time: 0.096
-URL: /rest/meals, Method: GET, Total Response Time: 0.046
-URL: /rest/largest-meal, Method: GET, Total Response Time: 0.029
-URL: /rest/cheapest-meal, Method: GET, Total Response Time: 0.037
-
-    \end{Verbatim}
+    \hypertarget{rest-request---leuven}{%
+\subsubsection{REST Request - Leuven}\label{rest-request---leuven}}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{server_test_files/server_test_3_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{server_test_files/server_test_15_0.png}
     \end{center}
-    { \hspace*{\fill} \\}
     
+    \hypertarget{run-the-soap-requests}{%
+\subsubsection{Run the SOAP requests}\label{run-the-soap-requests}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{soap\PYZus{}port} \PY{o}{=} \PY{l+m+mi}{8082}
+\PY{c+c1}{\PYZsh{} read the soap requests from the soap_requests directory}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \hypertarget{soap-requests---leuven}{%
+\subsection{SOAP Requests - Leuven}\label{soap-requests---leuven}}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{server_test_files/server_test_19_0.png}
+    \end{center}    
+    \hypertarget{data-from-the-azure-vms}{%
+\section{Data from the Azure VMs}\label{data-from-the-azure-vms}}
+The following data was generated by running the scripts on the Azure VMs. 
+\hypertarget{west-europe}{%
+\subsection{West Europe}\label{west-europe}}
+
+\hypertarget{rest-requests---west-europe}{%
+\subsubsection{REST Requests - West
+Europe}\label{rest-requests---west-europe}}
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{server_test_files/server_test_21_0.png}
+    \end{center}
+    
+    \hypertarget{soap-requests---west-europe}{%
+\subsubsection{SOAP Requests - West
+Europe}\label{soap-requests---west-europe}}
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{server_test_files/server_test_23_0.png}
+    \end{center}
+    
+    \hypertarget{east-us}{%
+\subsection{East US}\label{east-us}}
+
+\hypertarget{rest-requests---east-us}{%
+\subsubsection{REST Requests - East US}\label{rest-requests---east-us}}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{server_test_files/server_test_25_0.png}
+    \end{center}
+    
+    \hypertarget{azure-metrics}{%
+\section{Azure Metrics}\label{azure-metrics}}
+
+\hypertarget{japan-east}{%
+\subsection{Japan East}\label{japan-east}}
+
+\hypertarget{cpu-usage}{%
+\subsubsection{CPU Usage}\label{cpu-usage}}
+
+\begin{figure}
+\centering
+\includegraphics{./server_test_files/japanCPU.png}
+\caption{japanCPU}
+\end{figure}
+
+\hypertarget{credit-usage}{%
+\subsubsection{Credit Usage}\label{credit-usage}}
+
+\begin{figure}
+\centering
+\includegraphics{./server_test_files/japanCredit.png}
+\caption{japanCredit}
+\end{figure}
+
+    \hypertarget{observations}{%
+\section{Observations}\label{observations}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Geographical Proximity}: The response times are generally
+  shorter when the server is geographically closer to the client. In
+  this case, since the client is running the code from West Europe, the
+  response times for the West Europe server are significantly lower than
+  the response times for servers located in Japan, East US, and West US.
+\item
+  \textbf{API Type}: REST API response times are generally lower than
+  SOAP API response times due to JSON being more compact and faster to
+  parse than XML used by SOAP APIs. REST APIs also have a simpler
+  message structure.
+\item
+  \textbf{CPU and Credit Usage}: As expected, Azure's CPU and credit usage increases
+  during request processing.
+\end{enumerate}
+
 
     % Add a bibliography block to the postdoc
     
