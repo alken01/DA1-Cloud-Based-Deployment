@@ -7,24 +7,6 @@
 - Lennart Steenberghs	(lennart.steenberghs@student.kuleuven.be)
 - Michiel Thiers (michiel.thiers@student.kuleuven.be)
 
-
-```python
-# clear all values
-%reset -f
-```
-
-
-```python
-import os
-import numpy as np
-import requests
-import time
-import concurrent.futures
-import matplotlib.pyplot as plt
-import xml.etree.ElementTree as ET
-import pickle
-```
-
 ## Definition of the functions
 
 ### Test functions
@@ -132,7 +114,7 @@ plot_data(rest_response_times_dict, num_requests, this_ip, server_list, extra_ti
 
 
     
-![png](server_test_files/server_test_13_0.png)
+![png](report/server_test_files/server_test_13_0.png)
     
 
 
@@ -204,4 +186,4 @@ plot_data(soap_response_times_dict, num_requests, this_ip, server_list, extra_ti
 ```
 
 
-![png](server_test_files/server_test_17_0.png)
+![png](report/server_test_files/server_test_17_0.png)
